@@ -1,7 +1,9 @@
+import Home from "./pages/Home";
+
 function App() {
   return (
     <>
-      <div>Hi, From feature branch.</div>
+      <Home />
     </>
   );
 }
