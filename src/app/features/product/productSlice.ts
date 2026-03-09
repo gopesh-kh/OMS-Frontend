@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [{ id: 1, item: "ittems" }],
-  wishlist: [{ id: 1, item: "items" }],
+  favourite: [{ id: 1, item: "items" }],
 };
 
 const productSlice = createSlice({
@@ -10,9 +10,11 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     getProducts: (state, actoin) => {},
-    getFavourite: (state, action) => {},
+    addToFavourite: (state, action) => {},
+    removeFromFavourite: (state, action) => {},
   },
 });
 
-export const { getProducts, getFavourite } = productSlice.actions;
+export const { getProducts, addToFavourite, removeFromFavourite } =
+  productSlice.actions;
 export default productSlice.reducer;
