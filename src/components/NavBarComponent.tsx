@@ -5,9 +5,10 @@ import {
   UserIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/16/solid";
-import { COMPANY_NAME, SEARCH_BAR_PLACEHOLDER } from "../constants/constants";
+import { COMPANY_NAME } from "../constants/appConstants";
+import { PLACEHOLDER } from "../constants/placeholderConstants";
 
-const NavBar = () => {
+const NavBarComponent = () => {
   return (
     <nav className="">
       <ul className="flex justify-around items-center bg-mist-100 py-6 border-b">
@@ -21,7 +22,7 @@ const NavBar = () => {
               name="search"
               id="search"
               className="border-r-2 border-gray-700 w-80 h-10 p-4 outline-0"
-              placeholder={SEARCH_BAR_PLACEHOLDER}
+              placeholder={PLACEHOLDER.SEARCH_BAR}
             />
             <MagnifyingGlassIcon className="flex w-6 justify-center items-center mr-2.5 cursor-pointer text-purple-600" />
           </div>
@@ -45,4 +46,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NavBarComponent;
