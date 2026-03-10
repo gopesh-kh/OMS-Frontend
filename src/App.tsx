@@ -4,27 +4,31 @@ import Cart from "./pages/Cart";
 import Account from "./pages/Account";
 import Auth from "./pages/Auth";
 import Product from "./pages/Product";
-import Error from "./pages/Error";
+import PageNotFound from "./pages/PageNotFound";
+import { ROUTE } from "./constants/routeConstant";
 
 function App() {
   return (
     <Routes>
-      <Route path="/auth" element={<Auth />}>
-        <Route path="login" />
-        <Route path="signup" />
+      <Route path={ROUTE.AUTH.auth} element={<Auth />}>
+        <Route path={ROUTE.AUTH.login} />
+        <Route path={ROUTE.AUTH.signup} />
       </Route>
-      <Route path="/products" element={<Home />}>
-        <Route path=":productId" element={<Product />} />
+      <Route path={ROUTE.PRODUCTS.products} element={<Home />}>
+        <Route path={ROUTE.PRODUCTS.productId} element={<Product />} />
       </Route>
-      <Route path="/cart" element={<Cart />}></Route>
-      <Route path="/account" element={<Account />}>
-        <Route index path="viewprofile" />
-        <Route path="editprofile" />
-        <Route path="orders">
-          <Route path=":orderId" />
+      <Route path={ROUTE.CART.cart} element={<Cart />}></Route>
+      <Route path={ROUTE.ACCOUNT.account} element={<Account />}>
+        <Route index path={ROUTE.ACCOUNT.viewprofile} />
+        <Route path={ROUTE.ACCOUNT.editprofile} />
+        <Route path={ROUTE.ACCOUNT.orders}>
+          <Route path={ROUTE.ACCOUNT.orderId} />
         </Route>
       </Route>
-      <Route path="*" element={<Error />} />
+      <Route
+        path={ROUTE.PAGE_NOT_FOUND.pageNotFound}
+        element={<PageNotFound />}
+      />
     </Routes>
   );
 }

@@ -5,7 +5,10 @@ import {
   UserIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/16/solid";
-import { COMPANY_NAME, SEARCH_BAR_PLACEHOLDER } from "../constants/constants";
+import {
+  COMPANY_NAME,
+  SEARCH_BAR_PLACEHOLDER,
+} from "../constants/appConstants";
 
 const NavBar = () => {
   return (
