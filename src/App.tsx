@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Account from "./pages/Account";
-import Auth from "./pages/Auth";
-import Product from "./pages/Product";
+import Home from "./pages/HomePage";
+import Cart from "./pages/CartPage";
+import Account from "./pages/AccountPage";
+import Auth from "./pages/AuthPage";
+import Product from "./pages/AllProductPage";
 import PageNotFound from "./pages/PageNotFound";
 import { ROUTE } from "./constants/routeConstant";
 
