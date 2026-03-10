@@ -18,6 +18,9 @@ export const ROUTE = {
     orders: "orders",
     orderId: ":orderId",
   },
+  FAVOURITE: {
+    favourite: "/favourite",
+  },
   PAGE_NOT_FOUND: {
     pageNotFound: "*",
   },
