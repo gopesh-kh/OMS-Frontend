@@ -1,27 +1,33 @@
 export const ROUTE = {
+  HOME: {
+    home: "/",
+  },
   AUTH: {
-    auth: "/auth",
+    auth: "auth",
     login: "login",
     signup: "signup",
   },
   PRODUCTS: {
-    products: "/products",
+    products: "products",
     productId: ":productId",
   },
   CART: {
-    cart: "/cart",
+    cart: "cart",
   },
   ACCOUNT: {
-    account: "/account",
+    account: "account",
     viewprofile: "viewprofile",
     editprofile: "editprofile",
     orders: "orders",
     orderId: ":orderId",
   },
   FAVOURITE: {
-    favourite: "/favourite",
+    favourite: "favourite",
   },
   PAGE_NOT_FOUND: {
     pageNotFound: "*",
   },
 };
+
+export const REDIRECT_TO_REGISTER = "/auth/signup";
+export const REDIRECT_TO_LOGIN = "/auth/login";

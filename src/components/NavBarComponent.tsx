@@ -8,12 +8,12 @@ import {
 import { COMPANY_NAME } from "../constants/appConstants";
 import { PLACEHOLDER } from "../constants/placeholderConstants";
 import { ROUTE } from "../constants/routeConstant";
-import { Link, Route } from "react-router";
+import { Link } from "react-router";
 
 const NavBarComponent = () => {
   return (
     <nav className="">
-      <ul className="flex justify-around items-center bg-mist-100 py-6 border-b">
+      <ul className="flex justify-around items-center bg-mist-100 py-2 border-b">
         <Link to={ROUTE.PRODUCTS.products}>
           <li className="text-4xl font-bold text-purple-600 underline">
             {COMPANY_NAME}
@@ -31,7 +31,7 @@ const NavBarComponent = () => {
             <MagnifyingGlassIcon className="flex w-6 justify-center items-center mr-2.5 cursor-pointer text-purple-600" />
           </div>
         </li>
-        <div className="flex justify-end items-center gap-10">
+        <div className="flex justify-end items-center gap-16">
           <Link to={ROUTE.PRODUCTS.products}>
             <li className="flex items-center justify-center">
               <HomeIcon className="w-7 text-purple-600" />
@@ -47,7 +47,7 @@ const NavBarComponent = () => {
               <ShoppingCartIcon className="w-7 text-purple-600" />
             </li>
           </Link>
-          <Link to={ROUTE.ACCOUNT.viewprofile}>
+          <Link to={`${ROUTE.ACCOUNT.account}/${ROUTE.ACCOUNT.viewprofile}`}>
             <li className="flex items-center justify-center">
               <UserIcon className="w-7 text-purple-600" />
             </li>
