@@ -3,9 +3,9 @@ import { FOOTER_TEXT_1, FOOTER_TEXT_2 } from "../constants/appConstants";
 
 const FooterComponent = () => {
   return (
-    <div className="text-gray-600 flex justify-center items-center bg-mist-100 py-4 border-t">
+    <div className="text-[var(--color-primarytext)] flex justify-center items-center bg-[var(--color-secondarybg)] py-4 border-t">
       {FOOTER_TEXT_1}
-      <HeartIcon className="w-7 text-purple-600 inline" />
+      <HeartIcon className="w-7 text-[var(--color-secondary)] inline" />
       {FOOTER_TEXT_2}
     </div>
   );

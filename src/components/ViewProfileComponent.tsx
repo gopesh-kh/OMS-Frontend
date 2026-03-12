@@ -27,7 +27,7 @@ const ViewProfileComponent = () => {
   return (
     <div>
       <button
-        className="border rounded-2xl p-2 m-4 hover:bg-purple-300"
+        className="border rounded-2xl p-2 m-4 hover:bg-[var(--color-primary)]"
         onClick={handleSignout}
       >
         Signout
