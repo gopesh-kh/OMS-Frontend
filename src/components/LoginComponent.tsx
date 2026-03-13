@@ -13,6 +13,7 @@ import { REDIRECT_TO_REGISTER } from "../constants/routeConstant";
 import { useState } from "react";
 import axios from "axios";
 import { validateAuthForm } from "../utils/formValidator";
+import { EnvelopeIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const LoginComponent = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const LoginComponent = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,39 +75,56 @@ const LoginComponent = () => {
 
   return (
     <form onSubmit={handleLogin}>
-      <fieldset className="flex flex-col rounded-2xl p-4 shadow-2xl shadow-mist-400 w-90 h-80">
-        <p className="text-gray-700 text-2xl text-center">{LOGIN}</p>
-
+      <fieldset className="flex flex-col rounded-2xl p-4 shadow-2xl shadow-mist-400 w-90 h-65">
         <div className="flex flex-col">
           <label className="mt-2 text-md">{EMAIL}</label>
-          <input
-            name="email"
-            type="email"
-            className="border p-1 rounded"
-            placeholder={PLACEHOLDER.LOGIN_EMAIL}
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <div className="flex gap-3">
+            <input
+              name="email"
+              type="email"
+              className="border p-1 rounded w-80"
+              placeholder={PLACEHOLDER.LOGIN_EMAIL}
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <EnvelopeIcon className="w-7 text-[var(--color-secondary)]" />
+          </div>
 
           <label className="mt-2 text-md">{PASSWORD}</label>
-          <input
-            name="password"
-            type="password"
-            className="border p-1 rounded"
-            placeholder={PLACEHOLDER.LOGIN_PASSWORD}
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <div className="flex gap-3">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              className="border p-1 rounded w-80"
+              placeholder={PLACEHOLDER.LOGIN_PASSWORD}
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {!showPassword && (
+              <EyeIcon
+                className="w-7 text-[var(--color-secondary)]"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+            {showPassword && (
+              <EyeSlashIcon
+                className="w-7 text-[var(--color-secondary)]"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </div>
 
           {errorMessage && (
-            <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+            <p className="text-[var(--color-danger)] text-sm mt-1">
+              {errorMessage}
+            </p>
           )}
         </div>
 
         <div className="flex flex-col gap-3 mt-4 justify-center items-center">
           <button
             type="submit"
-            className="border rounded-2xl p-1 hover:bg-[var(--color-secondary)] text-lg w-30"
+            className="border rounded-2xl p-1 hover:bg-[var(--color-primarybg)] text-lg w-30"
           >
             {LOGIN}
           </button>

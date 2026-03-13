@@ -25,7 +25,7 @@ const NavBarComponent = () => {
               type="text"
               name="search"
               id="search"
-              className="border-r-2 text-[var(--color-secondary)] w-80 h-10 p-4 outline-0"
+              className="border-r-2 border-[var(--color-secondarybg)] text-[var(--color-secondary)] w-80 h-10 p-4 outline-0"
               placeholder={PLACEHOLDER.SEARCH_BAR}
             />
             <MagnifyingGlassIcon className="flex w-6 justify-center items-center mr-2.5 cursor-pointer text-[var(--color-secondary)]" />
