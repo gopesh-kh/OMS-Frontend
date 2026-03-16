@@ -11,7 +11,6 @@ import {
   FORM_TYPE,
 } from "../constants/formConstants";
 import { REDIRECT_TO_LOGIN } from "../constants/routeConstant";
-import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../app/features/auth/authSlice";
@@ -25,67 +24,60 @@ import {
   EyeSlashIcon,
   UserIcon,
 } from "@heroicons/react/16/solid";
-import type { AuthFormErrors, SignupFormDataType } from "../types/formTypes";
+import type { ISignupFormDataType } from "../types/formTypes";
 import { GENERIC_ERROR, SIGNUP_ERROR } from "../constants/errorConstants";
+import useToggle from "../hooks/useToggle";
+import useAuthForm from "../hooks/useAuthForm";
 
 const SignupComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { value: showPassword, toggle: togglePassword } = useToggle(false);
 
-  const [formData, setFormData] = useState<SignupFormDataType>({
+  const {
+    formData,
+    errorMessage,
+    setErrorMessage,
+    validationErrors,
+    setValidationErrors,
+    handleChange,
+  } = useAuthForm<ISignupFormDataType>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
-  const [validationErrors, setValidationErrors] = useState<AuthFormErrors>({});
+  const buttonCss =
+    "flex justify-around border rounded-xl p-1 text-lg w-30 hover:bg-(--color-secondary) hover:text-(--color-primarybg) transition";
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setFormData((prev: any) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    setErrorMessage("");
-
-    setValidationErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
-  };
-
-  const handleSignup = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setValidationErrors({});
 
-    const error = validateAuthForm(formData, true);
+    const errors = validateAuthForm(formData, true);
 
-    if (error) {
-      setValidationErrors(error);
+    if (errors) {
+      setValidationErrors(errors);
       return;
     }
 
     try {
-      const res = await axios.post(`${BASE_BACKEND_URL}/auth/signup`, formData);
-
-      const token = res?.data?.token;
-
-      document.cookie = `token=${token}; path=/; max-age=86400`;
+      await axios.post(`${BASE_BACKEND_URL}/auth/signup`, formData, {
+        withCredentials: true,
+      });
 
       dispatch(loginSuccess());
       navigate("/products");
-    } catch (error: any) {
-      console.error(error);
-
-      if (error.response) {
-        setErrorMessage(error.response.data.message || SIGNUP_ERROR);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          setErrorMessage(error.response.data?.message || SIGNUP_ERROR);
+        } else {
+          setErrorMessage(GENERIC_ERROR);
+        }
       } else {
         setErrorMessage(GENERIC_ERROR);
       }
@@ -114,7 +106,7 @@ const SignupComponent = () => {
             name={FORM_NAME.LAST_NAME}
             type={FORM_TYPE.TEXT}
             placeholder={FORM_PLACEHOLDER.LAST_NAME}
-            value={formData?.lastName}
+            value={formData.lastName}
             onchange={handleChange}
             errorMessage={validationErrors?.lastName}
           >
@@ -144,16 +136,15 @@ const SignupComponent = () => {
             errorMessage={validationErrors?.password}
             required
           >
-            {!showPassword && (
-              <EyeIcon
-                className="w-7 text-(--color-secondary) cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)}
-              />
-            )}
-            {showPassword && (
+            {showPassword ? (
               <EyeSlashIcon
                 className="w-7 text-(--color-secondary) cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={togglePassword}
+              />
+            ) : (
+              <EyeIcon
+                className="w-7 text-(--color-secondary) cursor-pointer"
+                onClick={togglePassword}
               />
             )}
           </FormInputComponent>
@@ -161,12 +152,13 @@ const SignupComponent = () => {
 
         <div className="flex flex-col gap-3 mt-2 justify-center items-center">
           <p className="text-(--color-danger) text-sm mt-1 w-full h-4">
-            {errorMessage}
+            {errorMessage && errorMessage}
           </p>
 
           <ButtonComponent
             type={FORM_TYPE.SUBMIT}
             buttonText={FORM_BUTTON_TEXT.SIGNUP}
+            css={buttonCss}
           >
             <ChevronDoubleRightIcon className="w-7" />
           </ButtonComponent>

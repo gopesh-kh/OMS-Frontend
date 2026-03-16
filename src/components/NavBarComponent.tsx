@@ -12,7 +12,7 @@ import { Link } from "react-router";
 
 const NavBarComponent = () => {
   return (
-    <nav className="">
+    <nav>
       <ul className="flex justify-around items-center bg-hover:bg-[var(--color-secondarytext)] py-2 border-b">
         <Link to={ROUTE.PRODUCTS.products}>
           <li className="text-4xl font-bold text-(--color-secondary) underline">
@@ -28,7 +28,7 @@ const NavBarComponent = () => {
               className="border-r-2 border-(--color-secondarybg) text-(--color-secondary) w-80 h-10 p-4 outline-0"
               placeholder={FORM_PLACEHOLDER.SEARCH_BAR}
             />
-            <MagnifyingGlassIcon className="flex w-6 justify-center items-center mr-2.5 cursor-pointer text-[var(--color-secondary)]" />
+            <MagnifyingGlassIcon className="flex w-6 justify-center items-center mr-2.5 cursor-pointer text-(--color-secondary)" />
           </div>
         </li>
         <div className="flex justify-end items-center gap-16">

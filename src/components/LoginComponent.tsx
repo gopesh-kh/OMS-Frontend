@@ -13,7 +13,6 @@ import {
   FORM_BUTTON_TEXT,
 } from "../constants/formConstants";
 import { REDIRECT_TO_REGISTER } from "../constants/routeConstant";
-import { useState } from "react";
 import axios from "axios";
 import { validateAuthForm } from "../utils/formValidator";
 import {
@@ -24,65 +23,58 @@ import {
 } from "@heroicons/react/16/solid";
 import FormInputComponent from "./FormInputComponent";
 import ButtonComponent from "./ButtonComponent";
-import type { AuthFormErrors, LoginFormDataType } from "../types/formTypes";
+import type { ILoginFormDataType } from "../types/formTypes";
 import { GENERIC_ERROR, LOGIN_ERROR } from "../constants/errorConstants";
+import useAuthForm from "../hooks/useAuthForm";
+import useToggle from "../hooks/useToggle";
 
 const LoginComponent = () => {
-  const [formData, setFormData] = useState<LoginFormDataType>({
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { value: showPassword, toggle: togglePassword } = useToggle(false);
+
+  const {
+    formData,
+    errorMessage,
+    setErrorMessage,
+    validationErrors,
+    setValidationErrors,
+    handleChange,
+  } = useAuthForm<ILoginFormDataType>({
     email: "",
     password: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [validationErrorMessage, setValidationErrorMessage] =
-    useState<AuthFormErrors>({});
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-
-    setFormData((prev: LoginFormDataType) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    setErrorMessage("");
-
-    setValidationErrorMessage((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
-  };
+  const buttonCss =
+    "flex justify-around border rounded-xl p-1 text-lg w-30 hover:bg-(--color-secondary) hover:text-(--color-primarybg) transition";
 
   const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setValidationErrorMessage({});
 
-    const validationErrors = validateAuthForm(formData);
+    setValidationErrors({});
 
-    if (validationErrors) {
-      setValidationErrorMessage(validationErrors);
+    const errors = validateAuthForm(formData);
+
+    if (errors) {
+      setValidationErrors(errors);
       return;
     }
 
     try {
-      const res = await axios.post(`${BASE_BACKEND_URL}/auth/login`, formData, {
+      await axios.post(`${BASE_BACKEND_URL}/auth/login`, formData, {
         withCredentials: true,
       });
 
-      const token = res?.data?.token;
-      document.cookie = `token=${token}; path=/; max-age=86400 `;
-
       dispatch(loginSuccess());
       navigate("/products");
-    } catch (error: any) {
-      console.error(error);
-
-      if (error.response) {
-        setErrorMessage(error.response.data.message || LOGIN_ERROR);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          setErrorMessage(error.response.data?.message || LOGIN_ERROR);
+        } else {
+          setErrorMessage(GENERIC_ERROR);
+        }
       } else {
         setErrorMessage(GENERIC_ERROR);
       }
@@ -100,7 +92,7 @@ const LoginComponent = () => {
             placeholder={FORM_PLACEHOLDER.EMAIL}
             value={formData.email}
             onchange={handleChange}
-            errorMessage={validationErrorMessage?.email}
+            errorMessage={validationErrors?.email}
           >
             <EnvelopeIcon className="w-7 text-(--color-secondary)" />
           </FormInputComponent>
@@ -112,18 +104,17 @@ const LoginComponent = () => {
             placeholder={FORM_PLACEHOLDER.PASSWORD}
             value={formData.password}
             onchange={handleChange}
-            errorMessage={validationErrorMessage?.password}
+            errorMessage={validationErrors?.password}
           >
-            {!showPassword && (
-              <EyeIcon
-                className="w-7 text-(--color-secondary) cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)}
-              />
-            )}
-            {showPassword && (
+            {showPassword ? (
               <EyeSlashIcon
                 className="w-7 text-(--color-secondary) cursor-pointer"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={togglePassword}
+              />
+            ) : (
+              <EyeIcon
+                className="w-7 text-(--color-secondary) cursor-pointer"
+                onClick={togglePassword}
               />
             )}
           </FormInputComponent>
@@ -133,9 +124,11 @@ const LoginComponent = () => {
           <p className="text-(--color-danger) text-sm mt-1 w-full h-4">
             {errorMessage && errorMessage}
           </p>
+
           <ButtonComponent
             type={FORM_TYPE.SUBMIT}
             buttonText={FORM_BUTTON_TEXT.LOGIN}
+            css={buttonCss}
           >
             <ChevronDoubleRightIcon className="w-7" />
           </ButtonComponent>

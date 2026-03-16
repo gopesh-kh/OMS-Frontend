@@ -1,9 +1,10 @@
 import { Outlet } from "react-router";
-import { WELCOME_TEXT_1, WELCOME_TEXT_2 } from "../constants/appConstants";
 import {
   LOGIN_IMAGE_ALT_TEXT,
   LOGIN_IMAGE_URL,
-} from "../constants/imageAndAltTextConstant";
+  WELCOME_TEXT_1,
+  WELCOME_TEXT_2,
+} from "../constants/appConstants";
 import FooterComponent from "../components/FooterComponent";
 
 const AuthPage = () => {

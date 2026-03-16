@@ -19,15 +19,13 @@ const ViewProfileComponent = () => {
       dispatch(logout());
 
       navigate("/auth/login");
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
+    } catch (error: unknown) {}
   };
 
   return (
     <div>
       <button
-        className="border rounded-2xl p-2 m-4 hover:bg-[var(--color-primary)]"
+        className="border rounded-2xl p-2 m-4 hover:bg-(--color-primary)"
         onClick={handleSignout}
       >
         Signout

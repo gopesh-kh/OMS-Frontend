@@ -1,15 +1,12 @@
-const ButtonComponent = (props: any) => {
-  const { type, buttonText, children } = props;
+import type { ButtonPropsType } from "../types/formTypes";
+
+const ButtonComponent = (props: ButtonPropsType) => {
+  const { type, buttonText, children, css } = props;
   return (
-    <div className="hover:bg-(--color-secondary) hover:text-(--color-primarybg) transition rounded-2xl">
-      <button
-        type={type}
-        className="flex justify-around border rounded-2xl p-1 text-lg w-30 "
-      >
-        {buttonText}
-        {children}
-      </button>
-    </div>
+    <button type={type} className={css}>
+      {buttonText}
+      <span>{children}</span>
+    </button>
   );
 };
 

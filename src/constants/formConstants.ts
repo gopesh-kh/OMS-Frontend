@@ -22,7 +22,7 @@ export const FORM_TYPE = {
   SUBMIT: "submit",
   RESET: "reset",
   BUTTON: "button",
-};
+} as const;
 
 export const FORM_NAME = {
   FIRST_NAME: "firstName",

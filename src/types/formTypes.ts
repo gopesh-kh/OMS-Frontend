@@ -1,29 +1,28 @@
 import { FORM_TYPE } from "../constants/formConstants";
 
-export interface LoginFormDataType {
+export interface ILoginFormDataType {
   email: string;
   password: string;
 }
 
-export interface SignupFormDataType extends LoginFormDataType {
+export interface ISignupFormDataType extends ILoginFormDataType {
   firstName: string;
   lastName?: string;
 }
 
-export type AuthFormErrors = {
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-};
+export type AuthFormErrorType = Partial<
+  Record<keyof ISignupFormDataType, string>
+>;
 
-export type FormInputProps = {
+export type FormInputPropsType = {
   label: string;
   name: string;
   type: string;
   placeholder: string;
-  value: string | undefined;
-  onchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onchange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   children?: React.ReactNode;
   errorMessage?: string;
   required?: boolean;
@@ -34,8 +33,9 @@ export type ButtonType =
   | typeof FORM_TYPE.RESET
   | typeof FORM_TYPE.SUBMIT;
 
-export type ButtonProps = {
+export type ButtonPropsType = {
   type?: ButtonType;
   buttonText: string;
   children?: React.ReactNode;
+  css: string;
 };
