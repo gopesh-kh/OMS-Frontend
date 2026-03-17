@@ -1,6 +1,6 @@
-import type { FormInputProps } from "../types/formTypes";
+import type { FormInputPropsType } from "../types/formTypes";
 
-const FormInputComponent = (props: FormInputProps) => {
+const FormInputComponent = (props: FormInputPropsType) => {
   const {
     label,
     name,
@@ -11,18 +11,21 @@ const FormInputComponent = (props: FormInputProps) => {
     children,
     errorMessage,
     required,
+    labelStyle,
+    inputFieldStyle,
+    inputDivStyle,
   } = props;
 
   return (
     <div>
-      <label className="mt-2 text-md items-center gap-1">
+      <label className={labelStyle}>
         {label} {required && <span className="text-(--color-danger)">*</span>}
       </label>
-      <div className="flex gap-2 border rounded p-1">
+      <div className={inputDivStyle}>
         <input
           name={name}
           type={type}
-          className="border-r w-80 outline-none"
+          className={inputFieldStyle}
           placeholder={placeholder}
           value={value}
           onChange={onchange}

@@ -4,7 +4,7 @@ import {
   PASSWORD_ERROR,
 } from "../constants/errorConstants";
 import type {
-  AuthFormErrors,
+  AuthFormErrorType,
   ILoginFormDataType,
   ISignupFormDataType,
 } from "../types/formTypes";
@@ -12,12 +12,22 @@ import type {
 export const validateAuthForm = (
   formData: ILoginFormDataType | ISignupFormDataType,
   isSignup: boolean = false,
-): AuthFormErrors => {
-  const errors: AuthFormErrors = {};
+): AuthFormErrorType => {
+  const errors: AuthFormErrorType = {};
 
   if (!formData.email || formData.email.trim() === "") {
     errors.email = EMAIL_ERROR.REQUIRE;
   } else {
+    /*
+      ^        → Start of string
+      [^\s@]+  → One or more characters except whitespace or '@' (email username)
+      @        → Literal '@' symbol separating username and domain
+      [^\s@]+  → One or more characters except whitespace or '@' (domain name)
+      \.       → Literal dot before domain extension
+      [^\s@]+  → One or more characters (domain extension like com, org)
+      $        → End of string
+    */
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(formData.email)) {
@@ -28,6 +38,16 @@ export const validateAuthForm = (
   if (!formData.password || formData.password.trim() === "") {
     errors.password = PASSWORD_ERROR.REQUIRE;
   } else {
+    /*
+      ^                → Start of string
+      (?=.*[a-z])      → At least one lowercase letter
+      (?=.*[A-Z])      → At least one uppercase letter
+      (?=.*\d)         → At least one digit (0–9)
+      (?=.*[@$!%*?&])  → At least one special character from @$!%*?&
+      .{8,}            → Minimum 8 characters (any character allowed)
+      $                → End of string
+    */
+
     const strongPasswordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 

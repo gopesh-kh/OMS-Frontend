@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import {
-  BASE_BACKEND_URL,
+  VITE_BASE_BACKEND_URL,
   REGISTER_TO_LOGIN_TEXT,
 } from "../constants/appConstants";
 import {
@@ -49,10 +49,13 @@ const SignupComponent = () => {
     password: "",
   });
 
-  const buttonCss =
+  const buttonStyle =
     "flex justify-around border rounded-xl p-1 text-lg w-30 hover:bg-(--color-secondary) hover:text-(--color-primarybg) transition";
+  const labelStyle = "mt-2 text-md items-center gap-1";
+  const inputFieldStyle = "border-r w-80 outline-none";
+  const inputDivStyle = "flex gap-2 border rounded p-1";
 
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setValidationErrors({});
@@ -65,7 +68,7 @@ const SignupComponent = () => {
     }
 
     try {
-      await axios.post(`${BASE_BACKEND_URL}/auth/signup`, formData, {
+      await axios.post(`${VITE_BASE_BACKEND_URL}/auth/signup`, formData, {
         withCredentials: true,
       });
 
@@ -97,6 +100,9 @@ const SignupComponent = () => {
             onchange={handleChange}
             errorMessage={validationErrors?.firstName}
             required
+            inputFieldStyle={inputFieldStyle}
+            labelStyle={labelStyle}
+            inputDivStyle={inputDivStyle}
           >
             <UserIcon className="w-7 text-(--color-secondary)" />
           </FormInputComponent>
@@ -109,6 +115,9 @@ const SignupComponent = () => {
             value={formData.lastName}
             onchange={handleChange}
             errorMessage={validationErrors?.lastName}
+            inputFieldStyle={inputFieldStyle}
+            labelStyle={labelStyle}
+            inputDivStyle={inputDivStyle}
           >
             <UserIcon className="w-7 text-(--color-secondary)" />
           </FormInputComponent>
@@ -122,6 +131,9 @@ const SignupComponent = () => {
             onchange={handleChange}
             errorMessage={validationErrors?.email}
             required
+            inputFieldStyle={inputFieldStyle}
+            labelStyle={labelStyle}
+            inputDivStyle={inputDivStyle}
           >
             <EnvelopeIcon className="w-7 text-(--color-secondary)" />
           </FormInputComponent>
@@ -135,6 +147,9 @@ const SignupComponent = () => {
             onchange={handleChange}
             errorMessage={validationErrors?.password}
             required
+            inputFieldStyle={inputFieldStyle}
+            labelStyle={labelStyle}
+            inputDivStyle={inputDivStyle}
           >
             {showPassword ? (
               <EyeSlashIcon
@@ -158,7 +173,7 @@ const SignupComponent = () => {
           <ButtonComponent
             type={FORM_TYPE.SUBMIT}
             buttonText={FORM_BUTTON_TEXT.SIGNUP}
-            css={buttonCss}
+            buttonStyle={buttonStyle}
           >
             <ChevronDoubleRightIcon className="w-7" />
           </ButtonComponent>
