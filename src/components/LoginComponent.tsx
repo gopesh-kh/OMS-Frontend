@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import {
-  BASE_BACKEND_URL,
+  VITE_BASE_BACKEND_URL,
   LOGIN_TO_REGISTER_TEXT,
 } from "../constants/appConstants";
 import { useDispatch } from "react-redux";
@@ -46,23 +46,26 @@ const LoginComponent = () => {
     password: "",
   });
 
-  const buttonCss =
+  const buttonStyle =
     "flex justify-around border rounded-xl p-1 text-lg w-30 hover:bg-(--color-secondary) hover:text-(--color-primarybg) transition";
+  const labelStyle = "mt-2 text-md items-center gap-1";
+  const inputFieldStyle = "border-r w-80 outline-none";
+  const inputDivStyle = "flex gap-2 border rounded p-1";
 
-  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setValidationErrors({});
 
     const errors = validateAuthForm(formData);
 
-    if (errors) {
+    if (Object.keys(errors).length !== 0) {
       setValidationErrors(errors);
       return;
     }
 
     try {
-      await axios.post(`${BASE_BACKEND_URL}/auth/login`, formData, {
+      await axios.post(`${VITE_BASE_BACKEND_URL}/auth/login`, formData, {
         withCredentials: true,
       });
 
@@ -93,6 +96,9 @@ const LoginComponent = () => {
             value={formData.email}
             onchange={handleChange}
             errorMessage={validationErrors?.email}
+            inputFieldStyle={inputFieldStyle}
+            labelStyle={labelStyle}
+            inputDivStyle={inputDivStyle}
           >
             <EnvelopeIcon className="w-7 text-(--color-secondary)" />
           </FormInputComponent>
@@ -105,6 +111,9 @@ const LoginComponent = () => {
             value={formData.password}
             onchange={handleChange}
             errorMessage={validationErrors?.password}
+            inputFieldStyle={inputFieldStyle}
+            labelStyle={labelStyle}
+            inputDivStyle={inputDivStyle}
           >
             {showPassword ? (
               <EyeSlashIcon
@@ -128,7 +137,7 @@ const LoginComponent = () => {
           <ButtonComponent
             type={FORM_TYPE.SUBMIT}
             buttonText={FORM_BUTTON_TEXT.LOGIN}
-            css={buttonCss}
+            buttonStyle={buttonStyle}
           >
             <ChevronDoubleRightIcon className="w-7" />
           </ButtonComponent>

@@ -26,6 +26,9 @@ export type FormInputPropsType = {
   children?: React.ReactNode;
   errorMessage?: string;
   required?: boolean;
+  inputFieldStyle: string;
+  labelStyle: string;
+  inputDivStyle: string;
 };
 
 export type ButtonType =
@@ -37,5 +40,6 @@ export type ButtonPropsType = {
   type?: ButtonType;
   buttonText: string;
   children?: React.ReactNode;
-  css: string;
+  buttonStyle: string;
+  handleClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
