@@ -2,7 +2,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logout } from "../app/features/auth/authSlice";
 import { useNavigate } from "react-router";
-import { BASE_BACKEND_URL } from "../constants/appConstants";
+import { VITE_BASE_BACKEND_URL } from "../constants/appConstants";
 
 const ViewProfileComponent = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const ViewProfileComponent = () => {
   const handleSignout = async () => {
     try {
       await axios.post(
-        `${BASE_BACKEND_URL}/api/auth/logout`,
+        `${VITE_BASE_BACKEND_URL}/api/auth/logout`,
         {},
         { withCredentials: true },
       );
