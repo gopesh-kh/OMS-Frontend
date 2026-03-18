@@ -63,7 +63,7 @@ export const validateAuthForm = (
       errors.firstName = NAME_ERROR.FIRST_NAME;
     }
 
-    if (signupData.lastName && typeof signupData.lastName !== "string") {
+    if (!signupData.lastName || signupData.lastName.trim() === "") {
       errors.lastName = NAME_ERROR.LAST_NAME;
     }
   }
