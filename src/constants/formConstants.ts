@@ -4,6 +4,10 @@ export const FORM_PLACEHOLDER = {
   PASSWORD: "********",
   FIRST_NAME: "John",
   LAST_NAME: "Doe",
+  CITY: "City",
+  STATE: "State",
+  COUNTRY: "Country",
+  POSTAL_CODE: "Postal Code",
 };
 
 export const FORM_LABEL = {
@@ -13,6 +17,10 @@ export const FORM_LABEL = {
   PASSWORD: "Password",
   FIRST_NAME: "First Name",
   LAST_NAME: "Last Name",
+  CITY: "City",
+  STATE: "State",
+  COUNTRY: "Country",
+  POSTAL_CODE: "Postal Code",
 };
 
 export const FORM_TYPE = {
@@ -29,9 +37,18 @@ export const FORM_NAME = {
   LAST_NAME: "lastName",
   EMAIL: "email",
   PASSWORD: "password",
+  CITY: "city",
+  STATE: "state",
+  COUNTRY: "country",
+  POSTAL_CODE: "postalCode",
 };
 
 export const FORM_BUTTON_TEXT = {
   LOGIN: "Login",
   SIGNUP: "Signup",
+};
+
+export const ADDRESS_TEXT_AREA = {
+  LINE_1: "Address Line 1",
+  LINE_2: "Address Line 2",
 };

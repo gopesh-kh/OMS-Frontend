@@ -16,13 +16,12 @@ export const ROUTE = {
   },
   ACCOUNT: {
     account: "account",
-    viewprofile: "viewprofile",
-    editprofile: "editprofile",
+    address: "address",
     orders: "orders",
     orderId: ":orderId",
   },
-  FAVOURITE: {
-    favourite: "favourite",
+  WISHLIST: {
+    wishlist: "wishlist",
   },
   PAGE_NOT_FOUND: {
     pageNotFound: "*",
