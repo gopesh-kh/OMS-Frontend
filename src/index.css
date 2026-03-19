@@ -1,12 +1,9 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap'); */
 @import "tailwindcss";
 
 :root {
-    --color-primary: #BC8CF2;
-    --color-secondary: #AA14F0;
-    --color-primarybg: #EEEEEE;
+    --color-primarybg: #f1f1f1;
     --color-secondarybg: #000000;
     --color-danger: #EF4444;
-    --color-primarytext: #dbd4d4;
-    --color-secondarytext: #b4acac;
+    --color-primarytext: #000000;
+    --color-secondarytext: #FEFEFE;
 }

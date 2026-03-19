@@ -7,28 +7,27 @@ export interface ILoginFormDataType {
 
 export interface ISignupFormDataType extends ILoginFormDataType {
   firstName: string;
-  lastName?: string;
+  lastName: string;
 }
 
 export type AuthFormErrorType = Partial<
   Record<keyof ISignupFormDataType, string>
 >;
 
-export type FormInputPropsType = {
+export type FormInputPropType = {
   label: string;
   name: string;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   value?: string;
   onchange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   children?: React.ReactNode;
   errorMessage?: string;
-  required?: boolean;
-  inputFieldStyle: string;
-  labelStyle: string;
-  inputDivStyle: string;
+  inputFieldStyle?: string;
+  labelStyle?: string;
+  inputDivStyle?: string;
 };
 
 export type ButtonType =
@@ -36,9 +35,9 @@ export type ButtonType =
   | typeof FORM_TYPE.RESET
   | typeof FORM_TYPE.SUBMIT;
 
-export type ButtonPropsType = {
-  type?: ButtonType;
-  buttonText: string;
+export type ButtonPropType = {
+  type: ButtonType;
+  buttonText?: string;
   children?: React.ReactNode;
   buttonStyle: string;
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;

@@ -14,5 +14,11 @@ export const PASSWORD_ERROR = {
 
 export const NAME_ERROR = {
   FIRST_NAME: "First name is required",
-  LAST_NAME: "Last name must be valid",
+  LAST_NAME: "Last name is required",
+};
+
+export const PAGE_NOT_FOUND = {
+  404: "404",
+  PAGE_NOT_FOUND: "Page not found",
+  BACK_TO_HOME: "Go Home",
 };
